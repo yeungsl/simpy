@@ -1,0 +1,65 @@
+  0.0000 Clerk: leaves.  Free:1, 0 waiting
+  0.0000 Customer00: Arrived     
+  0.0000 Customer00: Got counter 
+  1.1489 Customer01: Arrived     
+  5.6657 Customer02: Arrived     
+ 10.0126 Customer00: Finished    
+ 10.0126 Customer01: Got counter 
+ 12.8923 Customer03: Arrived     
+ 18.5883 Customer04: Arrived     
+ 18.5883 Clerk: needed .  Free:0, 2 waiting
+ 18.5883 Customer02: Got counter 
+ 19.2693 Customer05: Arrived     
+ 29.3088 Customer01: Finished    
+ 29.3088 Customer03: Got counter 
+ 30.1480 Customer03: Finished    
+ 30.1480 Customer04: Got counter 
+ 33.4014 Customer02: Finished    
+ 33.4014 Customer05: Got counter 
+ 38.2217 Customer05: Finished    
+ 38.2217 Clerk: leaves.  Free:0, 0 waiting
+ 43.3399 Customer06: Arrived     
+ 50.1427 Customer04: Finished    
+ 50.1427 Customer06: Got counter 
+ 50.4890 Customer07: Arrived     
+ 59.9075 Customer06: Finished    
+ 59.9075 Customer07: Got counter 
+ 60.1803 Customer07: Finished    
+ 69.7131 Customer08: Arrived     
+ 69.7131 Customer08: Got counter 
+ 70.4501 Customer09: Arrived     
+ 72.6073 Customer10: Arrived     
+ 77.1100 Customer08: Finished    
+ 77.1100 Customer09: Got counter 
+ 82.9374 Customer11: Arrived     
+ 88.3818 Customer12: Arrived     
+ 88.3818 Clerk: needed .  Free:0, 2 waiting
+ 88.3818 Customer10: Got counter 
+102.2682 Customer09: Finished    
+102.2682 Customer11: Got counter 
+113.2128 Customer11: Finished    
+113.2128 Customer12: Got counter 
+114.4846 Customer10: Finished    
+114.4846 Clerk: leaves.  Free:0, 0 waiting
+115.1832 Customer12: Finished    
+118.8531 Customer13: Arrived     
+118.8531 Customer13: Got counter 
+123.3260 Customer14: Arrived     
+127.7051 Customer13: Finished    
+127.7051 Customer14: Got counter 
+129.9052 Customer15: Arrived     
+131.9666 Customer16: Arrived     
+132.1441 Customer14: Finished    
+132.1441 Customer15: Got counter 
+136.8044 Customer17: Arrived     
+146.1739 Customer15: Finished    
+146.1739 Customer16: Got counter 
+147.3471 Customer16: Finished    
+147.3471 Customer17: Got counter 
+150.8755 Customer18: Arrived     
+159.2875 Customer19: Arrived     
+168.6009 Customer17: Finished    
+168.6009 Customer18: Got counter 
+171.8968 Customer18: Finished    
+171.8968 Customer19: Got counter 
+185.5079 Customer19: Finished    
