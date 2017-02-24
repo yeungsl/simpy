@@ -160,7 +160,7 @@ if __name__ == "__main__":
         i = 0
         while i <= 11:
             Parameters.Ts = i
-            for j in range(0, 1):
+            for j in range(0, 10):
                 m = model()
                 print "%f, %f" %(i, m)
             i += 0.5
