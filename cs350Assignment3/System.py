@@ -98,6 +98,7 @@ def model():
     print ""
     print "Process finished with exits code 0"
     print "Average waiting time was %f minutes." %wM.mean()
+    print "Average queue lengthe was %f packets. " %cs.waitMon.timeAverage()
 
 
 # Argument parsing function
