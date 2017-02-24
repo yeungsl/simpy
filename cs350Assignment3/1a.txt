@@ -1,0 +1,155 @@
+distribution type: uniform
+Number of servers: 1
+Time 2.8929383712: Packet 0 arrived and about to join the queue
+Time 2.8929383712: Packet 0 is about to get its service initiated
+Time 4.9652170411: Packet 1 arrived and about to join the queue
+Time 6.30034418545: Packet 0 service terminated and exists
+Time 6.30034418545: Packet 1 is about to get its service initiated
+Time 7.56784657926: Packet 2 arrived and about to join the queue
+Time 9.91405949951: Packet 3 arrived and about to join the queue
+Time 11.6782200646: Packet 1 service terminated and exists
+Time 11.6782200646: Packet 2 is about to get its service initiated
+Time 13.3755878963: Packet 4 arrived and about to join the queue
+Time 15.8374516992: Packet 5 arrived and about to join the queue
+Time 16.9175390189: Packet 2 service terminated and exists
+Time 16.9175390189: Packet 3 is about to get its service initiated
+Time 18.1216867356: Packet 6 arrived and about to join the queue
+Time 20.7902510835: Packet 3 service terminated and exists
+Time 20.7902510835: Packet 4 is about to get its service initiated
+Time 21.0797861504: Packet 7 arrived and about to join the queue
+Time 22.6991419436: Packet 8 arrived and about to join the queue
+Time 24.9952304543: Packet 9 arrived and about to join the queue
+Time 25.0445400623: Packet 4 service terminated and exists
+Time 25.0445400623: Packet 5 is about to get its service initiated
+Time 27.9712212657: Packet 10 arrived and about to join the queue
+Time 28.2745069841: Packet 5 service terminated and exists
+Time 28.2745069841: Packet 6 is about to get its service initiated
+Time 29.822124778: Packet 11 arrived and about to join the queue
+Time 32.3857799522: Packet 12 arrived and about to join the queue
+Time 32.9007124794: Packet 6 service terminated and exists
+Time 32.9007124794: Packet 7 is about to get its service initiated
+Time 35.1545818693: Packet 13 arrived and about to join the queue
+Time 38.1034925191: Packet 14 arrived and about to join the queue
+Time 38.7984396557: Packet 7 service terminated and exists
+Time 38.7984396557: Packet 8 is about to get its service initiated
+Time 40.8255395404: Packet 15 arrived and about to join the queue
+Time 42.9714573681: Packet 16 arrived and about to join the queue
+Time 44.188213186: Packet 8 service terminated and exists
+Time 44.188213186: Packet 9 is about to get its service initiated
+Time 45.1950346794: Packet 17 arrived and about to join the queue
+Time 47.2824627721: Packet 18 arrived and about to join the queue
+Time 47.6012661095: Packet 9 service terminated and exists
+Time 47.6012661095: Packet 10 is about to get its service initiated
+Time 50.0444150199: Packet 19 arrived and about to join the queue
+Time 50.4696858693: Packet 10 service terminated and exists
+Time 50.4696858693: Packet 11 is about to get its service initiated
+Time 52.4118173652: Packet 20 arrived and about to join the queue
+Time 54.6931369226: Packet 11 service terminated and exists
+Time 54.6931369226: Packet 12 is about to get its service initiated
+Time 54.8991875605: Packet 21 arrived and about to join the queue
+Time 57.0237100065: Packet 22 arrived and about to join the queue
+Time 58.8964580838: Packet 12 service terminated and exists
+Time 58.8964580838: Packet 13 is about to get its service initiated
+Time 59.3764126204: Packet 23 arrived and about to join the queue
+Time 62.7647326568: Packet 24 arrived and about to join the queue
+Time 64.9700147363: Packet 13 service terminated and exists
+Time 64.9700147363: Packet 14 is about to get its service initiated
+Time 65.2684060086: Packet 25 arrived and about to join the queue
+Time 66.9996427987: Packet 26 arrived and about to join the queue
+Time 69.1342137624: Packet 27 arrived and about to join the queue
+Time 69.9658265435: Packet 14 service terminated and exists
+Time 69.9658265435: Packet 15 is about to get its service initiated
+Time 71.4638661863: Packet 28 arrived and about to join the queue
+Time 73.4647769171: Packet 29 arrived and about to join the queue
+Time 75.9308454456: Packet 30 arrived and about to join the queue
+Time 75.931063175: Packet 15 service terminated and exists
+Time 75.931063175: Packet 16 is about to get its service initiated
+Time 79.4019650168: Packet 31 arrived and about to join the queue
+Time 80.509003652: Packet 16 service terminated and exists
+Time 80.509003652: Packet 17 is about to get its service initiated
+Time 82.1277540683: Packet 32 arrived and about to join the queue
+Time 83.491518316: Packet 17 service terminated and exists
+Time 83.491518316: Packet 18 is about to get its service initiated
+Time 85.2804356693: Packet 33 arrived and about to join the queue
+Time 87.8705716823: Packet 34 arrived and about to join the queue
+Time 88.4037588296: Packet 18 service terminated and exists
+Time 88.4037588296: Packet 19 is about to get its service initiated
+Time 90.0560993498: Packet 35 arrived and about to join the queue
+Time 92.1202419858: Packet 19 service terminated and exists
+Time 92.1202419858: Packet 20 is about to get its service initiated
+Time 92.3901437719: Packet 36 arrived and about to join the queue
+Time 95.6410574555: Packet 37 arrived and about to join the queue
+Time 97.3454450489: Packet 20 service terminated and exists
+Time 97.3454450489: Packet 21 is about to get its service initiated
+Time 98.1619021304: Packet 38 arrived and about to join the queue
+Time 100.833775236: Packet 39 arrived and about to join the queue
+Time 102.522700181: Packet 21 service terminated and exists
+Time 102.522700181: Packet 22 is about to get its service initiated
+Time 103.58358224: Packet 40 arrived and about to join the queue
+Time 106.768267115: Packet 41 arrived and about to join the queue
+Time 107.721456385: Packet 22 service terminated and exists
+Time 107.721456385: Packet 23 is about to get its service initiated
+Time 108.434657092: Packet 42 arrived and about to join the queue
+Time 110.421989841: Packet 43 arrived and about to join the queue
+Time 112.310435762: Packet 44 arrived and about to join the queue
+Time 113.27618775: Packet 23 service terminated and exists
+Time 113.27618775: Packet 24 is about to get its service initiated
+Time 114.955349677: Packet 45 arrived and about to join the queue
+Time 116.159037817: Packet 24 service terminated and exists
+Time 116.159037817: Packet 25 is about to get its service initiated
+Time 118.226003329: Packet 46 arrived and about to join the queue
+Time 121.168033705: Packet 25 service terminated and exists
+Time 121.168033705: Packet 26 is about to get its service initiated
+Time 121.172836046: Packet 47 arrived and about to join the queue
+Time 123.732550532: Packet 26 service terminated and exists
+Time 123.732550532: Packet 27 is about to get its service initiated
+Time 123.861699805: Packet 48 arrived and about to join the queue
+Time 125.679619093: Packet 49 arrived and about to join the queue
+Time 127.485760123: Packet 50 arrived and about to join the queue
+Time 128.459691302: Packet 27 service terminated and exists
+Time 128.459691302: Packet 28 is about to get its service initiated
+Time 130.376819181: Packet 51 arrived and about to join the queue
+Time 132.234757007: Packet 28 service terminated and exists
+Time 132.234757007: Packet 29 is about to get its service initiated
+Time 133.260759772: Packet 52 arrived and about to join the queue
+Time 135.53866092: Packet 53 arrived and about to join the queue
+Time 136.952290006: Packet 29 service terminated and exists
+Time 136.952290006: Packet 30 is about to get its service initiated
+Time 138.888925899: Packet 54 arrived and about to join the queue
+Time 141.103721033: Packet 55 arrived and about to join the queue
+Time 142.69090396: Packet 56 arrived and about to join the queue
+Time 142.818969994: Packet 30 service terminated and exists
+Time 142.818969994: Packet 31 is about to get its service initiated
+Time 144.800440107: Packet 57 arrived and about to join the queue
+Time 146.911712721: Packet 31 service terminated and exists
+Time 146.911712721: Packet 32 is about to get its service initiated
+Time 147.710357768: Packet 58 arrived and about to join the queue
+Time 149.922187499: Packet 59 arrived and about to join the queue
+Time 152.947283127: Packet 60 arrived and about to join the queue
+Time 153.393146649: Packet 32 service terminated and exists
+Time 153.393146649: Packet 33 is about to get its service initiated
+Time 155.63363696: Packet 61 arrived and about to join the queue
+Time 157.435891865: Packet 62 arrived and about to join the queue
+Time 158.659953844: Packet 33 service terminated and exists
+Time 158.659953844: Packet 34 is about to get its service initiated
+Time 159.73364445: Packet 63 arrived and about to join the queue
+Time 161.920556478: Packet 64 arrived and about to join the queue
+Time 162.123377435: Packet 34 service terminated and exists
+Time 162.123377435: Packet 35 is about to get its service initiated
+Time 164.446812787: Packet 65 arrived and about to join the queue
+Time 166.158629757: Packet 66 arrived and about to join the queue
+Time 167.289875636: Packet 35 service terminated and exists
+Time 167.289875636: Packet 36 is about to get its service initiated
+Time 167.920419658: Packet 67 arrived and about to join the queue
+Time 170.743548332: Packet 68 arrived and about to join the queue
+Time 171.077798062: Packet 36 service terminated and exists
+Time 171.077798062: Packet 37 is about to get its service initiated
+Time 173.936560782: Packet 69 arrived and about to join the queue
+Time 175.790827441: Packet 37 service terminated and exists
+Time 175.790827441: Packet 38 is about to get its service initiated
+Time 177.145465757: Packet 70 arrived and about to join the queue
+Time 179.279041551: Packet 71 arrived and about to join the queue
+Time 179.830178686: Packet 38 service terminated and exists
+Time 179.830178686: Packet 39 is about to get its service initiated
+
+Process finished with exits code 0

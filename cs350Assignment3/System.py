@@ -51,9 +51,16 @@ class Packet(Process):
 
         # Customer arrives, joins queue
         print "Time %s: Packet %s arrived and about to join the queue" %(now(), self.name)
+        arrive = now()
         yield request, self, cs
+        wait = now() - arrive
+        wM.observe(wait)
         print "Time %s: Packet %s is about to get its service initiated" %(now(), self.name)
-        yield hold, self, model(1)
+        if Parameters.distype == 0:
+            u = uniform(Parameters.serviceTimeMin, Parameters.serviceTimeMax)
+        else:
+            u = Parameters.Ts
+        yield hold, self, u
         yield release, self, cs
         print "Time %s: Packet %s service terminated and exists" %(now(), self.name)
 
@@ -64,7 +71,11 @@ class PacketGenerator(Process):
             arrival rate distribution defined'''
             name = 0
             while True :
-                yield hold, self, model(0)
+                if Parameters.distype == 0:
+                    u = uniform(Parameters.interarrivalTimeMin, Parameters.interarrivalTimeMax)
+                else:
+                    u = -(math.log(1 - uniform())/ Parameters.lambdaP)
+                yield hold, self, u
                 p = Packet(str(name))
                 activate(p, p.behavior_of_single_packet(cs))
                 name += 1
@@ -76,26 +87,17 @@ class ComputingSystem(Resource):
 
 
 #You can modify this model method#.
-def model(s):
+def model():
     # Seed the generator using seed value of 123.
-    if Parameters.distype == 0:
-        # this is the case for the uniform distribution
-        # a,b should be the range of the uniform distribution
-        if s == 0:
-            # s is to mark if it is the service time or not
-            u = uniform(Parameters.interarrivalTimeMin, Parameters.interarrivalTimeMax)
-            return u
-        else:
-            u = uniform(Parameters.serviceTimeMin, Parameters.serviceTimeMax)
-            return u
-    else:
-        # this is the case for the exponential distribution
-        # lam should be the lambda and the uniform distribution from 0,1
-        if s == 0:
-            u = uniform()
-            return -(math.log(1 - u)/ Parameters.lambdaP)
-        else:
-            return Parameters.Ts
+    seed(123)
+    cs = ComputingSystem(capacity = 1, monitored = True)
+    initialize()
+    pg = PacketGenerator("pg")
+    activate(pg, pg.createPackets(cs))
+    simulate(until = 120)
+    print ""
+    print "Process finished with exits code 0"
+    print "Average waiting time was %f minutes." %wM.mean()
 
 
 # Argument parsing function
@@ -122,12 +124,6 @@ def parsing():
 #Change the below, as per the requirements of the assignment.
 if __name__ == "__main__":
     parsing()
-    seed(123)
-    cs = ComputingSystem(capacity = 1)
-    initialize()
-    pg = PacketGenerator("pg")
-    activate(pg, pg.createPackets(cs))
-    simulate(until = 180)
-    print ""
-    print "Process finished with exits code 0"
+    wM = Monitor()
+    model()
     sys.exit(0)
