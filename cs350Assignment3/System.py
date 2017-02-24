@@ -1,6 +1,6 @@
 from SimPy.Simulation import *
 from numpy.random import seed, uniform
-import sys, getopt
+import sys, getopt, math
 
 # First Name: Sailung
 # Last Name: Yeung
@@ -24,15 +24,16 @@ class Parameters:
     5. numberOfServers in your computing system
     6. simulationTime in hrs. '''
 
-    lambdaP = 0 
-    Ts = 0
+    lambdaP = 0.0 
+    Ts = 0.0
     interarrivalTimeMin = 1.5
     interarrivalTimeMax = 3.5
     serviceTimeMin = 2.5
     serviceTimeMax = 6.5
     numberOfServers = 0
     simulationTime = 1
-
+    distype = 0  # the type setting the distribution 0 = uniform, 1 = exponential
+    
 
 
 
@@ -49,14 +50,24 @@ class Packet(Process):
         The cs in the method is an instance of the Computing System class'''
 
         # Customer arrives, joins queue
-
-
+        print "Time %s: Packet %s arrived and about to join the queue" %(now(), self.name)
+        yield request, self, cs
+        print "Time %s: Packet %s is about to get its service initiated" %(now(), self.name)
+        yield hold, self, model(1)
+        yield release, self, cs
+        print "Time %s: Packet %s service terminated and exists" %(now(), self.name)
 
 # Packet Generator class.
 class PacketGenerator(Process):
         def createPackets(self,cs):
             '''You must complete this method. This method generates and creates packets as per the
             arrival rate distribution defined'''
+            name = 0
+            while 1 :
+                yield hold, self, model(0)
+                p = Packet(str(name))
+                activate(p, p.behavior_of_single_packet(cs), at =0.0 )
+                name += 1
 
 
 #You do not need to modify this class.
@@ -65,13 +76,33 @@ class ComputingSystem(Resource):
 
 
 #You can modify this model method#.
-def model():
+def model(s):
     # Seed the generator using seed value of 123.
     seed(123)
+    if Parameters.distype == 0:
+        # this is the case for the uniform distribution
+        # a,b should be the range of the uniform distribution
+        if s == 0:
+            # s is to mark if it is the service time or not
+            return uniform(Parameters.interarrivalTimeMin, Parameters.interarrivalTimeMax)
+        else:
+            return uniform(Parameters.serviceTimeMin, Parameters.serviceTimeMax)
+    else:
+        # this is the case for the exponential distribution
+        # lam should be the lambda and the uniform distribution from 0,1
+        if s == 0:
+            u = uniform()
+            return -(math.log(1 - u)/ Parameters.lambdaP)
+        else:
+            return Parameters.Ts
+
 
 # Argument parsing function
 # getting from the python library website
 def parsing(argv):
+    if argv == []:
+        print "System.py -h or --help for usage"
+        sys.exit(2)
     try:
         opts, args = getopt.getopt(argv, "ht:", ["help=","type="])
     except getopt.GetoptError:
@@ -83,9 +114,27 @@ def parsing(argv):
             sys.exit()
         elif opt in ("-t", "--type"):
             print "Simulation model is:", arg
-            return arg
+            if arg[0] == 'U' or arg[0] == 'u':
+                print "distribution type: uniform"
+                Parameters.disttype = 0
+            elif arg[0] == 'M' or arg[0] == 'm':
+                print "distribution type: exponential"
+                Parameters.distype = 1
+            else:
+                print "invalid distribution type:", arg
+                sys.exit(2)
+            Parameters.numberOfServers = int(arg[2])
+            print "Number of servers:", Parameters.numberOfServers 
+
 
 #Change the below, as per the requirements of the assignment.
 if __name__ == "__main__":
     parsing(sys.argv[1:])
-    model()
+    cs = ComputingSystem(capacity = 1)
+    initialize()
+    pg = PacketGenerator("pg")
+    activate(pg, pg.createPackets(cs))
+    simulate(until = 180)
+    print ""
+    print "Process finished with exits code 0"
+    sys.exit(0)
