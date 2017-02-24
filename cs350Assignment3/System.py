@@ -24,19 +24,37 @@ class Parameters:
     5. numberOfServers in your computing system
     6. simulationTime in hrs. '''
 
-    lambdaP = 0.0 
-    Ts = 0.0
+    lambdaP = 10.0 
+    Ts = 8.0
     interarrivalTimeMin = 1.5
     interarrivalTimeMax = 3.5
     serviceTimeMin = 2.5
     serviceTimeMax = 6.5
     numberOfServers = 0
     simulationTime = 1
-    distype = 0  # the type setting the distribution 0 = uniform, 1 = exponential
-    
+    distypeR = 0  # the type setting the distribution 0 = uniform, 1 = exponential for arrivel rate
+    distypeS = 0  # the type setting the distribution 0 = uniform, 1 = exponential for service rate
+    generateRawResults = False # chekc to make sure if running the expirement or not
+    prevTime = 0.0
+    RunningTime = 120
 
 
+data = []        
+def record(t, cs):
+    data.append([t - Parameters.prevTime, len(cs.waitQ)])
+    Parameters.prevTime = t
 
+def avgQue(d, Tt):
+    r = 0
+    for e in d:
+        r += e[0] * e[1]
+    return r / Tt
+
+def conditionalPrint(s):
+    if Parameters.generateRawResults:
+        return
+    else:
+        print s
 ##### Processes #####
 # Customer
 class Packet(Process):
@@ -50,19 +68,21 @@ class Packet(Process):
         The cs in the method is an instance of the Computing System class'''
 
         # Customer arrives, joins queue
-        print "Time %s: Packet %s arrived and about to join the queue" %(now(), self.name)
+        conditionalPrint("Time " + str(now()) + ": Packet "+ str(self.name) + " arrived and about to join the queue")
         arrive = now()
+        record(arrive, cs)
         yield request, self, cs
         wait = now() - arrive
         wM.observe(wait)
-        print "Time %s: Packet %s is about to get its service initiated" %(now(), self.name)
-        if Parameters.distype == 0:
+        conditionalPrint("Time " + str(now()) + ": Packet "+ str(self.name) +" is about to get its service initiated")
+        if Parameters.distypeS == 0:
             u = uniform(Parameters.serviceTimeMin, Parameters.serviceTimeMax)
         else:
             u = Parameters.Ts
         yield hold, self, u
         yield release, self, cs
-        print "Time %s: Packet %s service terminated and exists" %(now(), self.name)
+        conditionalPrint("Time "+ str(now()) + ": Packet "+ str(self.name) +" service terminated and exists")
+        record(now(), cs)
 
 # Packet Generator class.
 class PacketGenerator(Process):
@@ -71,7 +91,7 @@ class PacketGenerator(Process):
             arrival rate distribution defined'''
             name = 0
             while True :
-                if Parameters.distype == 0:
+                if Parameters.distypeR == 0:
                     u = uniform(Parameters.interarrivalTimeMin, Parameters.interarrivalTimeMax)
                 else:
                     u = -(math.log(1 - uniform())/ Parameters.lambdaP)
@@ -94,11 +114,15 @@ def model():
     initialize()
     pg = PacketGenerator("pg")
     activate(pg, pg.createPackets(cs))
-    simulate(until = 120)
-    print ""
-    print "Process finished with exits code 0"
-    print "Average waiting time was %f minutes." %wM.mean()
-    print "Average queue lengthe was %f packets. " %cs.waitMon.timeAverage()
+    simulate(until = Parameters.RunningTime)
+    conditionalPrint("")
+    conditionalPrint("Process finished with exits code 0")
+    conditionalPrint("Average waiting time was "+ str(wM.mean()) +" minutes.")
+    #print "Average queue lengthe was %f packets. " %cs.waitMon.timeAverage()
+    r = avgQue(data, Parameters.RunningTime)
+    conditionalPrint("Average queue length was "+ str(r) +" packets.")
+    # print cs.waitMon.timeAverage()
+    return r
 
 
 # Argument parsing function
@@ -110,15 +134,21 @@ def parsing():
     args = parser.parse_args()
     if args.type[0] == 'U' or args.type[0] == 'u':
         print "distribution type: uniform"
-        Parameters.distype = 0
+        Parameters.distypeR = 0
+        Parameters.distypeS = 0
     elif args.type[0] == 'M' or args.type[0] == 'm':
         print "distribution type: exponential"
-        Parameters.distype = 1
+        Parameters.distypeR = 1
+        Parameters.distypeS = 1
     else:
         print "invalid distribution type:", args.type
         sys.exit(2)
     Parameters.numberOfServers = int(args.type[2])
     print "Number of servers:", Parameters.numberOfServers
+    
+    if args.generateRawResults:
+        Parameters.generateRawResults = True
+        Parameters.distypeS = 1
     return
 
 
@@ -126,5 +156,14 @@ def parsing():
 if __name__ == "__main__":
     parsing()
     wM = Monitor()
-    model()
+    if Parameters.generateRawResults:
+        i = 0
+        while i <= 11:
+            Parameters.Ts = i
+            for j in range(0, 1):
+                m = model()
+                print "%f, %f" %(i, m)
+            i += 0.5
+    else:
+        model()
     sys.exit(0)
