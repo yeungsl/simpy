@@ -66,7 +66,7 @@ class PacketGenerator(Process):
             while 1 :
                 yield hold, self, model(0)
                 p = Packet(str(name))
-                activate(p, p.behavior_of_single_packet(cs), at =0.0 )
+                activate(p, p.behavior_of_single_packet(cs))
                 name += 1
 
 
@@ -78,19 +78,26 @@ class ComputingSystem(Resource):
 #You can modify this model method#.
 def model(s):
     # Seed the generator using seed value of 123.
-    seed(123)
+
     if Parameters.distype == 0:
         # this is the case for the uniform distribution
         # a,b should be the range of the uniform distribution
         if s == 0:
             # s is to mark if it is the service time or not
-            return uniform(Parameters.interarrivalTimeMin, Parameters.interarrivalTimeMax)
+            seed(123)
+            u = uniform(Parameters.interarrivalTimeMin, Parameters.interarrivalTimeMax)
+            print u
+            return u
         else:
-            return uniform(Parameters.serviceTimeMin, Parameters.serviceTimeMax)
+            seed(123)
+            u = uniform(Parameters.serviceTimeMin, Parameters.serviceTimeMax)
+            print u 
+            return u
     else:
         # this is the case for the exponential distribution
         # lam should be the lambda and the uniform distribution from 0,1
         if s == 0:
+            seed(123)
             u = uniform()
             return -(math.log(1 - u)/ Parameters.lambdaP)
         else:
@@ -134,7 +141,7 @@ if __name__ == "__main__":
     initialize()
     pg = PacketGenerator("pg")
     activate(pg, pg.createPackets(cs))
-    simulate(until = 180)
+    simulate(until = 6)
     print ""
     print "Process finished with exits code 0"
     sys.exit(0)
