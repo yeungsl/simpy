@@ -24,25 +24,27 @@ class Parameters:
     5. numberOfServers in your computing system
     6. simulationTime in hrs. '''
 
-    lambdaP = 10.0 
+    lambdaP = 0.1 
     Ts = 8.0
+    mu = 1.0/Ts
     interarrivalTimeMin = 1.5
     interarrivalTimeMax = 3.5
     serviceTimeMin = 2.5
     serviceTimeMax = 6.5
     numberOfServers = 0
-    simulationTime = 1
+    simulationTime = 120
     distypeR = 0  # the type setting the distribution 0 = uniform, 1 = exponential for arrivel rate
     distypeS = 0  # the type setting the distribution 0 = uniform, 1 = exponential for service rate
     generateRawResults = False # chekc to make sure if running the expirement or not
-    prevTime = 0.0
-    RunningTime = 120
+    StedyTime = 120
+    prevTime = StedyTime - simulationTime
 
 
 data = []        
 def record(t, cs):
-    data.append([t - Parameters.prevTime, len(cs.waitQ)])
-    Parameters.prevTime = t
+    if t >= (Parameters.StedyTime- Parameters.simulationTime):
+        data.append([t - Parameters.prevTime, len(cs.waitQ)])
+        Parameters.prevTime = t
 
 def avgQue(d, Tt):
     r = 0
@@ -73,10 +75,13 @@ class Packet(Process):
         record(arrive, cs)
         yield request, self, cs
         wait = now() - arrive
+        #if now() >= (Parameters.StedyTime- Parameters.simulationTime):
         wM.observe(wait)
         conditionalPrint("Time " + str(now()) + ": Packet "+ str(self.name) +" is about to get its service initiated")
         if Parameters.distypeS == 0:
             u = uniform(Parameters.serviceTimeMin, Parameters.serviceTimeMax)
+        elif Parameters.distypeS == 1:
+            u = -(math.log(1 - uniform())/ Parameters.mu)
         else:
             u = Parameters.Ts
         yield hold, self, u
@@ -110,18 +115,19 @@ class ComputingSystem(Resource):
 def model():
     # Seed the generator using seed value of 123.
     seed(123)
-    cs = ComputingSystem(capacity = 1, monitored = True)
+    cs = ComputingSystem(capacity = Parameters.numberOfServers, monitored = True)
     initialize()
     pg = PacketGenerator("pg")
     activate(pg, pg.createPackets(cs))
-    simulate(until = Parameters.RunningTime)
+    simulate(until = Parameters.StedyTime)
     conditionalPrint("")
     conditionalPrint("Process finished with exits code 0")
     conditionalPrint("Average waiting time was "+ str(wM.mean()) +" minutes.")
     #print "Average queue lengthe was %f packets. " %cs.waitMon.timeAverage()
-    r = avgQue(data, Parameters.RunningTime)
+    r = avgQue(data, Parameters.simulationTime)
     conditionalPrint("Average queue length was "+ str(r) +" packets.")
-    # print cs.waitMon.timeAverage()
+    #print cs.waitMon.timeAverage()
+    #print len(data)
     return r
 
 
@@ -133,22 +139,22 @@ def parsing():
     parser.add_argument("--type", help="the type of distribution wanted to simulate")    
     args = parser.parse_args()
     if args.type[0] == 'U' or args.type[0] == 'u':
-        print "distribution type: uniform"
+        #print "distribution type: uniform"
         Parameters.distypeR = 0
         Parameters.distypeS = 0
     elif args.type[0] == 'M' or args.type[0] == 'm':
-        print "distribution type: exponential"
+        #print "distribution type: exponential"
         Parameters.distypeR = 1
         Parameters.distypeS = 1
     else:
         print "invalid distribution type:", args.type
         sys.exit(2)
     Parameters.numberOfServers = int(args.type[2])
-    print "Number of servers:", Parameters.numberOfServers
+    #print "Number of servers:", Parameters.numberOfServers
     
     if args.generateRawResults:
         Parameters.generateRawResults = True
-        Parameters.distypeS = 1
+        Parameters.distypeS = 2
     return
 
 
@@ -162,7 +168,7 @@ if __name__ == "__main__":
             Parameters.Ts = i
             for j in range(0, 10):
                 m = model()
-                print "%f, %f" %(i, m)
+                print "%f,%f" %(i, m)
             i += 0.5
     else:
         model()
