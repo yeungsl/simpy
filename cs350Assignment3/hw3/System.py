@@ -32,11 +32,11 @@ class Parameters:
     serviceTimeMin = 2.5
     serviceTimeMax = 6.5
     numberOfServers = 0
-    simulationTime = 120
+    simulationTime = 120 #change this to modify the range of time you wanted to record data
     distypeR = 0  # the type setting the distribution 0 = uniform, 1 = exponential for arrivel rate
     distypeS = 0  # the type setting the distribution 0 = uniform, 1 = exponential for service rate
     generateRawResults = False # chekc to make sure if running the expirement or not
-    StedyTime = 120
+    StedyTime = 120 # change this to modify the acutal time you wanted to run
     prevTime = StedyTime - simulationTime
 
 
@@ -122,10 +122,10 @@ def model():
     simulate(until = Parameters.StedyTime)
     conditionalPrint("")
     conditionalPrint("Process finished with exits code 0")
-    conditionalPrint("Average waiting time was "+ str(wM.mean()) +" minutes.")
+    #conditionalPrint("Average waiting time was "+ str(wM.mean()) +" minutes.")
     #print "Average queue lengthe was %f packets. " %cs.waitMon.timeAverage()
     r = avgQue(data, Parameters.simulationTime)
-    conditionalPrint("Average queue length was "+ str(r) +" packets.")
+    #conditionalPrint("Average queue length was "+ str(r) +" packets.")
     #print cs.waitMon.timeAverage()
     #print len(data)
     return r
